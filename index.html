@@ -4,13 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Northwest High School FBLA Regional Registration</title>
-    <meta http-equiv="refresh" content="0; url=northwest_high_school_fbla_regional_registration%20(2).html">
-    <link rel="canonical" href="northwest_high_school_fbla_regional_registration%20(2).html">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body>
-    <p>Redirecting to the registration form... If you are not redirected, <a href="northwest_high_school_fbla_regional_registration%20(2).html">click here</a>.</p>
-    <script>
-        window.location.replace("northwest_high_school_fbla_regional_registration%20(2).html");
-    </script>
+<body class="bg-slate-50">
+    <div class="max-w-7xl mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold text-blue-900 mb-6">FBLA Regional Registration</h1>
+        <form id="fbla-form" class="bg-white p-6 rounded-lg shadow">
+            <div class="mb-4">
+                <label class="block font-bold mb-2">Student Name *</label>
+                <input type="text" id="fullName" required class="w-full px-3 py-2 border rounded">
+            </div>
+            <div class="mb-4">
+                <label class="block font-bold mb-2">Grade *</label>
+                <select id="grade" required class="w-full px-3 py-2 border rounded">
+                    <option value="">Select Grade</option>
+                    <option value="9th">9th Grade</option>
+                    <option value="10th">10th Grade</option>
+                    <option value="11th">11th Grade</option>
+                    <option value="12th">12th Grade</option>
+                </select>
+            </div>
+            <div class="mb-4">
+                <label class="block font-bold mb-2">Email *</label>
+                <input type="email" id="email" required class="w-full px-3 py-2 border rounded">
+            </div>
+            <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded font-bold hover:bg-blue-700">
+                Submit Registration
+            </button>
+        </form>
+    </div>
 </body>
 </html>
