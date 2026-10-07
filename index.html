@@ -7,32 +7,219 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body class="bg-slate-50">
-    <div class="max-w-7xl mx-auto px-4 py-8">
-        <h1 class="text-3xl font-bold text-blue-900 mb-6">FBLA Regional Registration</h1>
-        <form id="fbla-form" class="bg-white p-6 rounded-lg shadow">
-            <div class="mb-4">
-                <label class="block font-bold mb-2">Student Name *</label>
-                <input type="text" id="fullName" required class="w-full px-3 py-2 border rounded">
+<body class="bg-slate-50 text-slate-800 font-sans">
+    <header class="bg-blue-900 text-white shadow-md border-b-4 border-yellow-400 py-4">
+        <div class="max-w-5xl mx-auto px-4">
+            <h1 class="text-2xl font-bold">Northwest High School FBLA Regional Registration</h1>
+            <p class="text-sm text-blue-200">Host School: East Chapel Hill High School • November 14th, 2026 • Fee: $35.00</p>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 py-8">
+        <form id="fbla-form" class="space-y-6">
+            <!-- SECTION 1: Student Profile -->
+            <div class="bg-white p-6 rounded-lg shadow border-t-4 border-blue-900">
+                <h2 class="text-lg font-bold text-blue-900 mb-4">1. Student Profile</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block font-semibold mb-2">Student Full Name *</label>
+                        <input type="text" id="fullName" required placeholder="Jane Doe" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-600">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-2">Grade Level *</label>
+                        <select id="grade" required class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-600">
+                            <option value="">Select Grade</option>
+                            <option value="9th Grade (Freshman)">9th Grade (Freshman)</option>
+                            <option value="10th Grade (Sophomore)">10th Grade (Sophomore)</option>
+                            <option value="11th Grade (Junior)">11th Grade (Junior)</option>
+                            <option value="12th Grade (Senior)">12th Grade (Senior)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-2">Student Email *</label>
+                        <input type="email" id="email" required placeholder="jane.doe@school.edu" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-600">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-2">Student Phone *</label>
+                        <input type="tel" id="phone" required placeholder="(555) 000-0000" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-600">
+                    </div>
+                </div>
             </div>
-            <div class="mb-4">
-                <label class="block font-bold mb-2">Grade *</label>
-                <select id="grade" required class="w-full px-3 py-2 border rounded">
-                    <option value="">Select Grade</option>
-                    <option value="9th">9th Grade</option>
-                    <option value="10th">10th Grade</option>
-                    <option value="11th">11th Grade</option>
-                    <option value="12th">12th Grade</option>
-                </select>
+
+            <!-- SECTION 2: Event Selection -->
+            <div class="bg-white p-6 rounded-lg shadow border-t-4 border-blue-900">
+                <h2 class="text-lg font-bold text-blue-900 mb-4">2. Select Competitive Events</h2>
+                <p class="text-sm text-gray-600 mb-4">You may select up to 1 Individual Event AND/OR 1 Team Event</p>
+                
+                <div class="mb-6">
+                    <h3 class="font-semibold text-blue-800 mb-3">Individual Events (Select 0 or 1)</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <label class="flex items-center p-3 border border-gray-300 rounded cursor-pointer hover:bg-blue-50">
+                            <input type="radio" name="individualEvent" value="Accounting" class="mr-3">
+                            <span class="font-medium">Accounting</span>
+                        </label>
+                        <label class="flex items-center p-3 border border-gray-300 rounded cursor-pointer hover:bg-blue-50">
+                            <input type="radio" name="individualEvent" value="Impromptu Speaking" class="mr-3">
+                            <span class="font-medium">Impromptu Speaking</span>
+                        </label>
+                        <label class="flex items-center p-3 border border-gray-300 rounded cursor-pointer hover:bg-blue-50">
+                            <input type="radio" name="individualEvent" value="Job Interview" class="mr-3">
+                            <span class="font-medium">Job Interview</span>
+                        </label>
+                        <label class="flex items-center p-3 border border-gray-300 rounded cursor-pointer hover:bg-blue-50">
+                            <input type="radio" name="individualEvent" value="Public Speaking" class="mr-3">
+                            <span class="font-medium">Public Speaking</span>
+                        </label>
+                        <label class="flex items-center p-3 border border-gray-300 rounded cursor-pointer hover:bg-blue-50">
+                            <input type="radio" name="individualEvent" value="Computer Applications" class="mr-3">
+                            <span class="font-medium">Computer Applications</span>
+                        </label>
+                        <label class="flex items-center p-3 border border-gray-300 rounded cursor-pointer hover:bg-blue-50">
+                            <input type="radio" name="individualEvent" value="Business Communication" class="mr-3">
+                            <span class="font-medium">Business Communication</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="font-semibold text-blue-800 mb-3">Team Events (Select 0 or 1)</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <label class="flex items-center p-3 border border-gray-300 rounded cursor-pointer hover:bg-blue-50">
+                            <input type="radio" name="teamEvent" value="Business Plan" class="mr-3">
+                            <span class="font-medium">Business Plan</span>
+                        </label>
+                        <label class="flex items-center p-3 border border-gray-300 rounded cursor-pointer hover:bg-blue-50">
+                            <input type="radio" name="teamEvent" value="Coding & Programming" class="mr-3">
+                            <span class="font-medium">Coding & Programming</span>
+                        </label>
+                        <label class="flex items-center p-3 border border-gray-300 rounded cursor-pointer hover:bg-blue-50">
+                            <input type="radio" name="teamEvent" value="Graphic Design" class="mr-3">
+                            <span class="font-medium">Graphic Design</span>
+                        </label>
+                        <label class="flex items-center p-3 border border-gray-300 rounded cursor-pointer hover:bg-blue-50">
+                            <input type="radio" name="teamEvent" value="Website Design" class="mr-3">
+                            <span class="font-medium">Website Design</span>
+                        </label>
+                        <label class="flex items-center p-3 border border-gray-300 rounded cursor-pointer hover:bg-blue-50">
+                            <input type="radio" name="teamEvent" value="Data Analysis" class="mr-3">
+                            <span class="font-medium">Data Analysis</span>
+                        </label>
+                        <label class="flex items-center p-3 border border-gray-300 rounded cursor-pointer hover:bg-blue-50">
+                            <input type="radio" name="teamEvent" value="Digital Video Production" class="mr-3">
+                            <span class="font-medium">Digital Video Production</span>
+                        </label>
+                    </div>
+                </div>
             </div>
-            <div class="mb-4">
-                <label class="block font-bold mb-2">Email *</label>
-                <input type="email" id="email" required class="w-full px-3 py-2 border rounded">
+
+            <!-- SECTION 3: Dietary Restrictions -->
+            <div class="bg-white p-6 rounded-lg shadow border-t-4 border-blue-900">
+                <h2 class="text-lg font-bold text-blue-900 mb-4">3. Dietary Restrictions</h2>
+                <div>
+                    <label class="block font-semibold mb-2">Do you have any dietary restrictions? *</label>
+                    <select id="dietary" required class="w-full md:w-1/2 px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-600">
+                        <option value="">Select an option</option>
+                        <option value="None">None / No Specific Restrictions</option>
+                        <option value="Vegetarian">Vegetarian</option>
+                        <option value="Vegan">Vegan</option>
+                        <option value="Gluten-Free">Gluten-Free</option>
+                        <option value="Nut Allergy">Nut Allergy</option>
+                        <option value="Dairy-Free">Dairy-Free</option>
+                        <option value="Halal / Kosher">Halal / Kosher</option>
+                        <option value="Other">Other / Multiple Restrictions</option>
+                    </select>
+                </div>
             </div>
-            <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded font-bold hover:bg-blue-700">
-                Submit Registration
-            </button>
+
+            <!-- SECTION 4: Payment Method -->
+            <div class="bg-white p-6 rounded-lg shadow border-t-4 border-blue-900">
+                <h2 class="text-lg font-bold text-blue-900 mb-4">4. Payment Method</h2>
+                <p class="text-sm text-gray-600 mb-4">Registration Fee: <strong>$35.00</strong></p>
+                <div class="space-y-3">
+                    <label class="flex items-start p-3 border border-gray-300 rounded cursor-pointer hover:bg-blue-50">
+                        <input type="radio" name="paymentMethod" value="School Cash Online" required class="mt-1 mr-3">
+                        <div>
+                            <span class="font-semibold">School Cash Online</span>
+                            <p class="text-sm text-gray-600">Pay $35 digitally through Northwest High School's cash online portal</p>
+                        </div>
+                    </label>
+                    <label class="flex items-start p-3 border border-gray-300 rounded cursor-pointer hover:bg-blue-50">
+                        <input type="radio" name="paymentMethod" value="Cash / Check" required class="mt-1 mr-3">
+                        <div>
+                            <span class="font-semibold">Cash or Check</span>
+                            <p class="text-sm text-gray-600">Turn in $35 cash/check in-person to your NWHS FBLA Advisor</p>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <!-- SECTION 5: Event Details & Consent -->
+            <div class="bg-blue-50 border border-blue-200 p-6 rounded-lg">
+                <h2 class="text-lg font-bold text-blue-900 mb-4">5. Event Details & Parent Consent</h2>
+                <div class="space-y-4 text-sm bg-white p-4 rounded mb-4 border-l-4 border-yellow-400">
+                    <p><strong>📍 Location:</strong> East Chapel Hill High School</p>
+                    <p><strong>📅 Date:</strong> November 14th, 2026</p>
+                    <p><strong>💰 Entry Fee:</strong> $35.00</p>
+                    <p><strong>⏰ Registration Deadline:</strong> Tuesday, October 13th</p>
+                </div>
+
+                <label class="flex items-start cursor-pointer mb-4">
+                    <input type="checkbox" id="consent" required class="mt-1 mr-3">
+                    <span class="text-sm leading-relaxed">
+                        <strong>Parent/Guardian Consent:</strong> I give permission for my child to participate with Northwest High School FBLA in the Regional Competition hosted at <strong>East Chapel Hill High School on November 14th, 2026</strong>. I understand the registration fee is <strong>$35.00</strong>. I acknowledge this is a school-sponsored event and agree to the terms and conditions.
+                    </span>
+                </label>
+            </div>
+
+            <!-- SECTION 6: Signatures -->
+            <div class="bg-white p-6 rounded-lg shadow border-t-4 border-blue-900">
+                <h2 class="text-lg font-bold text-blue-900 mb-4">6. Signatures</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block font-semibold mb-2">Parent/Guardian Full Name *</label>
+                        <input type="text" id="parentName" required placeholder="Parent Full Name" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-600">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-2">Parent/Guardian Phone *</label>
+                        <input type="tel" id="parentPhone" required placeholder="(555) 000-0000" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-600">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-2">Student Signature (Type Your Name) *</label>
+                        <input type="text" id="studentSig" required placeholder="Your Full Name" class="w-full px-4 py-2 border border-gray-300 rounded italic font-serif focus:outline-none focus:ring-2 focus:ring-blue-600">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-2">Parent/Guardian Signature (Type Your Name) *</label>
+                        <input type="text" id="parentSig" required placeholder="Parent Full Name" class="w-full px-4 py-2 border border-gray-300 rounded italic font-serif focus:outline-none focus:ring-2 focus:ring-blue-600">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="flex justify-center gap-4">
+                <button type="reset" class="px-6 py-3 bg-gray-400 text-white rounded font-semibold hover:bg-gray-500">
+                    Clear Form
+                </button>
+                <button type="submit" class="px-8 py-3 bg-blue-900 text-white rounded font-bold hover:bg-blue-800 text-lg">
+                    Submit Registration
+                </button>
+            </div>
         </form>
-    </div>
+    </main>
+
+    <footer class="bg-blue-900 text-gray-300 py-6 mt-12 border-t-4 border-yellow-400">
+        <div class="max-w-5xl mx-auto px-4 text-center text-sm">
+            <p>© 2026 Future Business Leaders of America (FBLA) • Northwest High School Chapter</p>
+            <p>Host School: East Chapel Hill High School • Registration Deadline: Tuesday, October 13th</p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('fbla-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for registering!\n\nYour registration has been submitted. You will receive a confirmation email shortly.');
+            // Optionally reset the form
+            // this.reset();
+        });
+    </script>
 </body>
 </html>
