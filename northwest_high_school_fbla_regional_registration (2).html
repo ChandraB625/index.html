@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Northwest High School FBLA Regional Registration</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        fbla: {
+                            navy: '#002855',
+                            blue: '#003366',
+                            lightBlue: '#0056b3',
+                            gold: '#FFC72C',
+                            darkGold: '#D49B00',
+                            slate: '#1E293B'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #F1F5F9;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #CBD5E1;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94A3B8;
+        }
+
+        /* Dedicated Print Styles for Blank Paper Form and Receipt Output */
+        @media print {
+            body {
+                background: white !important;
+                color: black !important;
+                font-size: 11pt !important;
+            }
+            .no-print {
+                display: none !important;
+            }
+            .print-only {
+                display: block !important;
+            }
+            main {
+                padding: 0 !important;
+                margin: 0 !important;
+                max-width: 100% !important;
+            }
+            .paper-form-box {
+                border: 1px solid #94a3b8 !important;
+                box-shadow: none !important;
+                break-inside: avoid;
+            }
+        }
+        .print-only {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col justify-between">
+
+    <!-- Header Navigation -->
+    <header class="bg-fbla-navy text-white shadow-md border-b-4 border-fbla-gold sticky top-0 z-30 no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap justify-between items-center gap-3">
+            <div class="flex items-center space-x-3">
+                <div class="bg-fbla-gold text-fbla-navy font-black text-xl rounded-lg px-3 py-1 flex items-center shadow-inner tracking-wider">
+                    <i class="fa-solid fa-briefcase mr-2"></i>FBLA
+                </div>
+                <div>
+                    <h1 class="text-lg sm:text-xl font-bold tracking-tight leading-none text-white">Northwest High School Registration</h1>
+                    <p class="text-xs text-slate-300 hidden sm:block">Host School: East Chapel Hill High School • Conference Date: Nov 14th</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-2 text-xs sm:text-sm">
+                <button type="button" onclick="openScriptGuideModal()" class="bg-emerald-700 hover:bg-emerald-600 text-white font-bold px-3 py-1.5 rounded-lg transition border border-emerald-400 flex items-center shadow-xs">
+                    <i class="fa-solid fa-file-excel mr-1.5 text-fbla-gold"></i> Connect Google Sheet
+                </button>
+                <button type="button" onclick="printBlankForm()" class="bg-white/10 hover:bg-white/20 text-white font-bold px-3 py-1.5 rounded-lg transition border border-white/30 flex items-center shadow-xs">
+                    <i class="fa-solid fa-print mr-1.5 text-fbla-gold"></i> Print Blank Form
+                </button>
+                <span class="bg-fbla-blue text-fbla-gold px-3 py-1.5 rounded-lg font-semibold border border-fbla-gold/30 hidden md:flex items-center">
+                    <i class="fa-solid fa-calendar-days mr-1.5"></i> Deadline: Oct 13th
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <!-- PRINTABLE PAPER FORM HEADER (ONLY VISIBLE ON PRINT) -->
+    <div class="print-only max-w-4xl mx-auto p-4">
+        <div class="border-b-2 border-slate-900 pb-3 mb-4 flex justify-between items-center">
+            <div>
+                <h1 class="text-2xl font-black uppercase text-fbla-navy tracking-tight">FBLA Regional Competition Entry Form</h1>
+                <p class="text-xs font-bold text-slate-700">Northwest High School Chapter • Host Location: East Chapel Hill High School • Conference Date: November 14th</p>
+            </div>
+            <div class="text-right text-xs">
+                <p class="font-extrabold text-sm">REGISTRATION FEE: $35.00</p>
+                <p class="font-bold text-slate-700">Deadline: Tuesday, October 13th</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN FORM BODY -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full flex-grow">
+        
+        <!-- Google Sheet Integration Status Banner -->
+        <div id="sheets-config-banner" class="mb-6 p-4 rounded-xl border no-print transition-all">
+            <!-- Populated dynamically via JavaScript -->
+        </div>
+
+        <!-- Hero Banner -->
+        <div class="bg-gradient-to-r from-fbla-navy via-fbla-blue to-slate-800 text-white rounded-2xl p-6 sm:p-8 mb-8 shadow-xl relative overflow-hidden no-print">
+            <div class="absolute -right-10 -bottom-10 opacity-10 text-white pointer-events-none">
+                <i class="fa-solid fa-location-dot text-[220px]"></i>
+            </div>
+            <div class="relative z-10 max-w-3xl">
+                <span class="inline-block bg-fbla-gold text-fbla-navy font-extrabold text-xs px-3 py-1 rounded-full uppercase tracking-widest mb-3">
+                    Northwest High School FBLA
+                </span>
+                <h2 class="text-2xl sm:text-3xl font-extrabold mb-3 leading-tight">2026 Regional Leadership Conference Sign-Up</h2>
+                <p class="text-slate-200 text-sm sm:text-base leading-relaxed mb-4">
+                    Complete your registration below. Select up to 1 Individual Event and/or 1 Team Event. Submissions will log directly into our FBLA Google Spreadsheet.
+                </p>
+                <div class="flex flex-wrap gap-4 text-xs sm:text-sm text-slate-300 border-t border-slate-700/60 pt-4">
+                    <div class="flex items-center"><i class="fa-solid fa-location-dot text-fbla-gold mr-1.5"></i> Host: East Chapel Hill High School</div>
+                    <div class="flex items-center"><i class="fa-solid fa-check-circle text-fbla-gold mr-1.5"></i> Max 1 Individual Event</div>
+                    <div class="flex items-center"><i class="fa-solid fa-check-circle text-fbla-gold mr-1.5"></i> Max 1 Team Event</div>
+                    <div class="flex items-center"><i class="fa-solid fa-dollar-sign text-fbla-gold mr-1.5"></i> Registration Fee: $35</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form Container Grid -->
+        <form id="fbla-registration-form" onsubmit="handleFormSubmit(event)">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                
+                <!-- Left Column (2 Cols): Form Inputs -->
+                <div class="lg:col-span-2 space-y-8">
+
+                    <!-- SECTION 1: Student Profile -->
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden paper-form-box">
+                        <div class="bg-slate-100 border-b border-slate-200 px-6 py-4 flex items-center justify-between">
+                            <h3 class="text-lg font-bold text-fbla-navy flex items-center">
+                                <span class="w-7 h-7 rounded-full bg-fbla-navy text-fbla-gold text-sm flex items-center justify-center mr-3 font-extrabold no-print">1</span>
+                                Member Profile & Contact Details
+                            </h3>
+                            <span class="text-xs text-slate-500 font-medium no-print">* Required fields</span>
+                        </div>
+                        <div class="p-6 grid grid-cols-1 sm:grid-cols-2 gap-5">
+                            <div>
+                                <label for="fullName" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">Student Full Name *</label>
+                                <input type="text" id="fullName" required placeholder="Jane Doe" class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-fbla-blue focus:border-fbla-blue transition text-sm">
+                            </div>
+                            <div>
+                                <label for="gradeLevel" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">Grade Level *</label>
+                                <select id="gradeLevel" required class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-fbla-blue focus:border-fbla-blue transition text-sm">
+                                    <option value="">Select Grade</option>
+                                    <option value="9th Grade (Freshman)">9th Grade (Freshman)</option>
+                                    <option value="10th Grade (Sophomore)">10th Grade (Sophomore)</option>
+                                    <option value="11th Grade (Junior)">11th Grade (Junior)</option>
+                                    <option value="12th Grade (Senior)">12th Grade (Senior)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="email" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">Student Email *</label>
+                                <input type="email" id="email" required placeholder="jane.doe@school.edu" class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-fbla-blue focus:border-fbla-blue transition text-sm">
+                            </div>
+                            <div>
+                                <label for="phone" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">Student Phone *</label>
+                                <input type="tel" id="phone" required placeholder="(555) 000-0000" class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-fbla-blue focus:border-fbla-blue transition text-sm">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SECTION 2: Competitive Event Selection -->
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden paper-form-box">
+                        <div class="bg-slate-100 border-b border-slate-200 px-6 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                            <h3 class="text-lg font-bold text-fbla-navy flex items-center">
+                                <span class="w-7 h-7 rounded-full bg-fbla-navy text-fbla-gold text-sm flex items-center justify-center mr-3 font-extrabold no-print">2</span>
+                                Select Competitive Events
+                            </h3>
+                            <span class="text-xs bg-slate-200 text-slate-700 px-2.5 py-1 rounded-md font-semibold no-print">
+                                Rule: Max 1 Individual AND/OR 1 Team
+                            </span>
+                        </div>
+
+                        <div class="p-6">
+                            <!-- Event Type Legend Banner -->
+                            <div class="mb-4 p-3 bg-slate-50 border border-slate-200 rounded-lg flex flex-wrap gap-3 items-center text-xs">
+                                <span class="font-bold text-slate-700">Event Format Legend:</span>
+                                <span class="bg-blue-100 text-fbla-blue font-bold px-2 py-0.5 rounded border border-blue-200"><i class="fa-solid fa-pen-to-square mr-1"></i> Objective Testing</span>
+                                <span class="bg-purple-100 text-purple-800 font-bold px-2 py-0.5 rounded border border-purple-200"><i class="fa-solid fa-comments mr-1"></i> Role Play / Speech</span>
+                                <span class="bg-teal-100 text-teal-800 font-bold px-2 py-0.5 rounded border border-teal-200"><i class="fa-solid fa-layer-group mr-1"></i> Both (Test & Role Play)</span>
+                                <span class="bg-amber-100 text-amber-800 font-bold px-2 py-0.5 rounded border border-amber-200"><i class="fa-solid fa-flag mr-1"></i> Spirit</span>
+                            </div>
+
+                            <!-- Search & Filter Controls -->
+                            <div class="flex flex-col md:flex-row gap-3 mb-5 no-print">
+                                <div class="relative flex-grow">
+                                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-400 text-sm"></i>
+                                    <input type="text" id="eventSearch" oninput="filterEvents()" placeholder="Search events..." class="w-full pl-10 pr-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-fbla-blue text-sm">
+                                </div>
+                                <div class="flex flex-wrap gap-1 bg-slate-100 p-1 rounded-lg text-xs font-semibold" id="categoryTabs">
+                                    <button type="button" onclick="setCategoryFilter('all', this)" class="cat-btn px-2.5 py-1.5 rounded-md bg-white text-fbla-navy shadow-xs font-bold transition">All</button>
+                                    <button type="button" onclick="setCategoryFilter('individual', this)" class="cat-btn px-2.5 py-1.5 rounded-md text-slate-600 hover:text-fbla-navy transition">Individual</button>
+                                    <button type="button" onclick="setCategoryFilter('team', this)" class="cat-btn px-2.5 py-1.5 rounded-md text-slate-600 hover:text-fbla-navy transition">Team</button>
+                                    <button type="button" onclick="setCategoryFilter('testing', this)" class="cat-btn px-2.5 py-1.5 rounded-md text-slate-600 hover:text-fbla-navy transition">Testing</button>
+                                    <button type="button" onclick="setCategoryFilter('roleplay', this)" class="cat-btn px-2.5 py-1.5 rounded-md text-slate-600 hover:text-fbla-navy transition">Role Play</button>
+                                    <button type="button" onclick="setCategoryFilter('both', this)" class="cat-btn px-2.5 py-1.5 rounded-md text-slate-600 hover:text-fbla-navy transition">Both</button>
+                                </div>
+                            </div>
+
+                            <!-- Events Grid Container -->
+                            <div id="events-grid" class="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[480px] overflow-y-auto custom-scrollbar pr-1">
+                                <!-- Events populated by JS -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SECTION 3: Teammate Details (Dynamic) -->
+                    <div id="team-section" class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden paper-form-box transition-all duration-300 hidden">
+                        <div class="bg-slate-100 border-b border-slate-200 px-6 py-4 flex items-center justify-between">
+                            <h3 class="text-lg font-bold text-fbla-navy flex items-center">
+                                <span class="w-7 h-7 rounded-full bg-fbla-navy text-fbla-gold text-sm flex items-center justify-center mr-3 font-extrabold no-print">3</span>
+                                Team Member Information
+                            </h3>
+                            <span class="text-xs text-amber-800 bg-amber-100 px-2.5 py-1 rounded-md font-semibold border border-amber-200 no-print">
+                                Required for team events
+                            </span>
+                        </div>
+                        <div class="p-6">
+                            <p class="text-xs text-slate-500 mb-4">Please list the other students joining your team for your selected team event.</p>
+                            <div id="teammates-container" class="space-y-4">
+                                <!-- Dynamic teammate rows -->
+                            </div>
+                            <button type="button" onclick="addTeammateInput()" class="mt-4 px-3.5 py-2 text-xs font-bold text-fbla-blue bg-blue-50 hover:bg-blue-100 border border-blue-200 rounded-lg transition flex items-center no-print">
+                                <i class="fa-solid fa-user-plus mr-1.5"></i> Add Additional Teammate
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- SECTION 4: Payment Method, Dietary Restrictions & Digital Signatures -->
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden paper-form-box">
+                        <div class="bg-slate-100 border-b border-slate-200 px-6 py-4">
+                            <h3 class="text-lg font-bold text-fbla-navy flex items-center">
+                                <span class="w-7 h-7 rounded-full bg-fbla-navy text-fbla-gold text-sm flex items-center justify-center mr-3 font-extrabold no-print" id="section-4-num">3</span>
+                                Payment Options, Dietary Restrictions & Signatures
+                            </h3>
+                        </div>
+                        <div class="p-6 space-y-6">
+                            
+                            <!-- Payment Method Selection -->
+                            <div>
+                                <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">Regional Fee Payment Method ($35.00) *</label>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                    <label class="flex items-start p-3 bg-slate-50 border border-slate-200 rounded-lg cursor-pointer hover:bg-slate-100 transition">
+                                        <input type="radio" name="paymentMethod" value="School Cash Online" required class="mt-0.5 text-fbla-blue focus:ring-fbla-blue">
+                                        <div class="ml-2.5 text-xs">
+                                            <span class="font-bold text-slate-800 block">School Cash Online</span>
+                                            <span class="text-slate-500 text-[11px]">Pay $35 digitally through Northwest High School's cash online portal.</span>
+                                        </div>
+                                    </label>
+                                    <label class="flex items-start p-3 bg-slate-50 border border-slate-200 rounded-lg cursor-pointer hover:bg-slate-100 transition">
+                                        <input type="radio" name="paymentMethod" value="Cash / Check (Turn in to Advisor)" required class="mt-0.5 text-fbla-blue focus:ring-fbla-blue">
+                                        <div class="ml-2.5 text-xs">
+                                            <span class="font-bold text-slate-800 block">Cash or Check</span>
+                                            <span class="text-slate-500 text-[11px]">Turn in $35 cash/check in-person to your NWHS FBLA Advisor.</span>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <hr class="border-slate-200">
+
+                            <!-- Dietary Restrictions Field -->
+                            <div>
+                                <label for="dietaryRestrictions" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">Dietary Restrictions *</label>
+                                <select id="dietaryRestrictions" required class="w-full sm:w-1/2 px-3.5 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-fbla-blue text-sm">
+                                    <option value="None">None / No Specific Restrictions</option>
+                                    <option value="Vegetarian">Vegetarian</option>
+                                    <option value="Vegan">Vegan</option>
+                                    <option value="Gluten-Free">Gluten-Free</option>
+                                    <option value="Nut Allergy">Nut Allergy</option>
+                                    <option value="Dairy-Free">Dairy-Free</option>
+                                    <option value="Halal / Kosher">Halal / Kosher</option>
+                                    <option value="Other">Other / Multiple Restrictions</option>
+                                </select>
+                            </div>
+
+                            <hr class="border-slate-200">
+
+                            <!-- Consent Checkbox -->
+                            <div>
+                                <label class="flex items-start cursor-pointer">
+                                    <input type="checkbox" id="parentConsent" required class="mt-1 text-fbla-blue rounded focus:ring-fbla-blue">
+                                    <span class="ml-2 text-xs sm:text-sm text-slate-700 leading-relaxed font-medium">
+                                        Parent/Guardian Consent: I give permission for my child to participate with Northwest High School FBLA in the Regional Competition hosted at <strong>East Chapel Hill High School</strong> on November 14th, and acknowledge the $35 registration fee. *
+                                    </span>
+                                </label>
+                            </div>
+
+                            <!-- Parent Info & Digital Signatures -->
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 pt-2">
+                                <div>
+                                    <label for="parentName" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">Parent/Guardian Full Name *</label>
+                                    <input type="text" id="parentName" required placeholder="Parent Full Name" class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-fbla-blue text-sm">
+                                </div>
+                                <div>
+                                    <label for="parentPhone" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">Parent Phone Number *</label>
+                                    <input type="tel" id="parentPhone" required placeholder="(555) 000-0000" class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-fbla-blue text-sm">
+                                </div>
+                                <div>
+                                    <label for="studentSignature" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">Student Signature (Full Name) *</label>
+                                    <input type="text" id="studentSignature" required placeholder="Type Name to Sign" class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-fbla-blue text-sm italic font-serif">
+                                </div>
+                                <div>
+                                    <label for="parentSignature" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">Parent/Guardian Signature *</label>
+                                    <input type="text" id="parentSignature" required placeholder="Type Name to Sign" class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-fbla-blue text-sm italic font-serif">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Submit Buttons with Google Sheet Integration Label -->
+                    <div class="flex items-center justify-end space-x-4 no-print">
+                        <button type="button" onclick="resetForm()" class="px-5 py-2.5 text-sm font-semibold text-slate-600 hover:text-slate-800 hover:bg-slate-200 rounded-lg transition">
+                            Reset Form
+                        </button>
+                        <button type="submit" id="submit-btn" class="px-8 py-3 bg-fbla-gold hover:bg-fbla-darkGold text-fbla-navy font-extrabold text-base rounded-lg shadow-md hover:shadow-lg transition transform hover:-translate-y-0.5 flex items-center">
+                            <span>Submit Final Registration</span>
+                            <i class="fa-solid fa-cloud-arrow-up ml-2" id="submit-btn-icon"></i>
+                        </button>
+                    </div>
+
+                </div>
+
+                <!-- Right Column (1 Col): Live Event Summary & Dates -->
+                <div class="lg:col-span-1 no-print">
+                    <div class="sticky top-20 space-y-6">
+                        
+                        <!-- Dynamic Summary Card -->
+                        <div class="bg-white rounded-xl shadow-md border border-slate-200 overflow-hidden">
+                            <div class="bg-fbla-navy text-white px-5 py-4 flex justify-between items-center">
+                                <h4 class="font-bold text-base flex items-center">
+                                    <i class="fa-solid fa-list-check mr-2 text-fbla-gold"></i> Selected Events
+                                </h4>
+                                <span id="event-count-badge" class="bg-fbla-gold text-fbla-navy text-xs font-black px-2.5 py-0.5 rounded-full">0 Selected</span>
+                            </div>
+                            <div class="p-5">
+                                <div id="selected-events-list" class="space-y-3 min-h-[120px] max-h-[260px] overflow-y-auto custom-scrollbar">
+                                    <div class="text-center py-8 text-slate-400 text-xs italic">
+                                        <i class="fa-regular fa-folder-open text-2xl mb-2 block"></i>
+                                        No events selected yet.<br>Select 1 Individual and/or 1 Team event.
+                                    </div>
+                                </div>
+
+                                <div class="mt-5 pt-4 border-t border-slate-200 space-y-2 text-xs text-slate-600">
+                                    <div class="flex justify-between">
+                                        <span>Individual Event:</span>
+                                        <span id="indiv-count" class="font-bold text-slate-800">0 / 1</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span>Team Event:</span>
+                                        <span id="team-count" class="font-bold text-slate-800">0 / 1</span>
+                                    </div>
+                                    <div class="flex justify-between pt-2 border-t border-slate-100 text-sm">
+                                        <span class="font-bold text-fbla-navy">Registration Fee:</span>
+                                        <span class="font-extrabold text-emerald-600">$35.00</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Important Dates Box -->
+                        <div class="bg-slate-800 text-white rounded-xl p-5 shadow-sm space-y-3">
+                            <h4 class="text-sm font-bold text-fbla-gold flex items-center border-b border-slate-700 pb-2">
+                                <i class="fa-solid fa-calendar-check mr-2"></i> Key Regional Dates
+                            </h4>
+                            <ul class="text-xs space-y-2.5 text-slate-300">
+                                <li class="flex justify-between items-start">
+                                    <span class="text-slate-400">Registration Closes:</span>
+                                    <span class="font-semibold text-fbla-gold text-right ml-2">Tuesday, Oct 13th</span>
+                                </li>
+                                <li class="flex justify-between items-start">
+                                    <span class="text-slate-400">Pre-judged Files Due:</span>
+                                    <span class="font-semibold text-white text-right ml-2">Oct 14th - 15th</span>
+                                </li>
+                                <li class="flex justify-between items-start">
+                                    <span class="text-slate-400">Testing Window:</span>
+                                    <span class="font-semibold text-white text-right ml-2">Oct 26th or Oct 28th</span>
+                                </li>
+                                <li class="flex justify-between items-start pt-1 border-t border-slate-700">
+                                    <span class="text-slate-400">Regional Competition:</span>
+                                    <span class="font-bold text-emerald-400 text-right ml-2">November 14th</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Location Box -->
+                        <div class="bg-blue-50 border border-blue-200 rounded-xl p-4 text-xs text-blue-900 flex items-start space-x-3">
+                            <i class="fa-solid fa-school text-fbla-blue text-lg mt-0.5"></i>
+                            <div>
+                                <span class="font-bold block mb-0.5">Host School & Chapter</span>
+                                <strong>Host Location:</strong> East Chapel Hill High School<br>
+                                <strong>School Chapter:</strong> Northwest High School<br>
+                                <strong>Entry Fee:</strong> $35.00
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-fbla-navy text-slate-400 py-6 border-t-4 border-fbla-gold mt-12 no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center text-xs gap-3">
+            <p>© 2026 Future Business Leaders of America (FBLA) • Northwest High School Chapter</p>
+            <p>Host School: East Chapel Hill High School • Registration Deadline: Tuesday, October 13th</p>
+        </div>
+    </footer>
+
+    <!-- SUBMISSION CONFIRMATION MODAL RECEIPT -->
+    <div id="confirmation-modal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4 overflow-y-auto">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto custom-scrollbar border border-slate-200 my-8">
+            <div class="bg-fbla-navy text-white p-6 border-b-4 border-fbla-gold flex justify-between items-start no-print">
+                <div>
+                    <span class="bg-fbla-gold text-fbla-navy font-bold text-[10px] px-2.5 py-0.5 rounded-full uppercase tracking-wider inline-block mb-1">Registration Recorded</span>
+                    <h3 class="text-xl font-bold">NWHS FBLA Regionals Entry Receipt</h3>
+                    <p class="text-xs text-slate-300">Host Location: East Chapel Hill High School • Nov 14th</p>
+                </div>
+                <button type="button" onclick="closeModal()" class="text-slate-300 hover:text-white text-xl">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Printable Receipt Content -->
+            <div id="printable-receipt" class="p-6 space-y-6">
+                <!-- Receipt Header -->
+                <div class="border-b border-slate-200 pb-4 flex justify-between items-center">
+                    <div>
+                        <h2 class="text-xl font-extrabold text-fbla-navy">NORTHWEST HIGH SCHOOL FBLA</h2>
+                        <p class="text-xs text-slate-500">Host Location: East Chapel Hill High School • Nov 14th</p>
+                    </div>
+                    <div class="text-right text-xs">
+                        <p>Registration Fee: <span class="text-emerald-700 font-bold">$35.00</span></p>
+                        <p>Status: <span class="text-emerald-600 font-bold">Logged to Spreadsheet</span></p>
+                    </div>
+                </div>
+
+                <!-- Profile Summary -->
+                <div>
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Member Profile</h4>
+                    <div class="bg-slate-50 rounded-lg p-3 text-xs grid grid-cols-2 gap-2 border border-slate-200">
+                        <div><strong class="text-slate-600">Student Name:</strong> <span id="r-name" class="text-slate-900 font-medium"></span></div>
+                        <div><strong class="text-slate-600">Grade:</strong> <span id="r-grade" class="text-slate-900 font-medium"></span></div>
+                        <div><strong class="text-slate-600">Email:</strong> <span id="r-email" class="text-slate-900 font-medium"></span></div>
+                        <div><strong class="text-slate-600">Phone:</strong> <span id="r-phone" class="text-slate-900 font-medium"></span></div>
+                        <div><strong class="text-slate-600">Payment Selected:</strong> <span id="r-payment" class="text-slate-900 font-bold"></span></div>
+                        <div><strong class="text-slate-600">Dietary Restrictions:</strong> <span id="r-dietary" class="text-slate-900 font-medium"></span></div>
+                    </div>
+                </div>
+
+                <!-- Selected Events Summary -->
+                <div>
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Registered Competitive Events</h4>
+                    <div id="r-events-list" class="space-y-2">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Teammate Summary -->
+                <div id="r-teammates-box" class="hidden">
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Registered Team Members</h4>
+                    <div id="r-teammates-list" class="bg-slate-50 rounded-lg p-3 text-xs space-y-1 border border-slate-200">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Signatures Summary -->
+                <div>
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Signatures & Consent</h4>
+                    <div class="bg-slate-50 rounded-lg p-3 text-xs grid grid-cols-2 gap-2 border border-slate-200">
+                        <div><strong class="text-slate-600">Parent Name:</strong> <span id="r-parent-name" class="text-slate-900 font-medium"></span></div>
+                        <div><strong class="text-slate-600">Parent Phone:</strong> <span id="r-parent-phone" class="text-slate-900 font-medium"></span></div>
+                        <div><strong class="text-slate-600">Student Signature:</strong> <span id="r-student-sig" class="font-serif italic font-bold text-fbla-navy"></span></div>
+                        <div><strong class="text-slate-600">Parent Signature:</strong> <span id="r-parent-sig" class="font-serif italic font-bold text-fbla-navy"></span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Action Buttons -->
+            <div class="bg-slate-50 px-6 py-4 border-t border-slate-200 flex flex-wrap justify-between items-center gap-3 no-print">
+                <button type="button" onclick="closeModal()" class="px-4 py-2 text-xs font-bold text-slate-600 hover:text-slate-800 transition">
+                    Close
+                </button>
+                <div class="flex space-x-2">
+                    <button type="button" onclick="window.print()" class="px-4 py-2 bg-slate-800 hover:bg-slate-900 text-white rounded-lg text-xs font-bold transition flex items-center">
+                        <i class="fa-solid fa-print mr-1.5"></i> Print Receipt
+                    </button>
+                    <button type="button" onclick="closeModal()" class="px-5 py-2 bg-fbla-navy hover:bg-fbla-blue text-white rounded-lg text-xs font-bold transition">
+                        Done
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- GOOGLE APPS SCRIPT SETUP GUIDE MODAL -->
+    <div id="script-guide-modal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4 overflow-y-auto">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto custom-scrollbar border border-slate-200 my-8">
+            <div class="bg-emerald-800 text-white p-6 border-b-4 border-fbla-gold flex justify-between items-start">
+                <div>
+                    <span class="bg-fbla-gold text-fbla-navy font-bold text-[10px] px-2.5 py-0.5 rounded-full uppercase tracking-wider inline-block mb-1">Advisor Guide</span>
+                    <h3 class="text-xl font-bold"><i class="fa-solid fa-file-excel mr-2"></i>Connect Google Sheet in 3 Steps</h3>
+                    <p class="text-xs text-slate-200">Send form submissions directly into your Google Spreadsheet in real time.</p>
+                </div>
+                <button type="button" onclick="closeScriptGuideModal()" class="text-slate-300 hover:text-white text-xl">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="p-6 space-y-5 text-xs sm:text-sm text-slate-700">
+                <!-- Step 1 -->
+                <div>
+                    <h4 class="font-bold text-slate-900 text-sm mb-1">Step 1: Open Google Sheets</h4>
+                    <p class="text-slate-600 mb-2">Create a Google Sheet titled <strong>"NWHS FBLA Regionals Sign-ups 2026"</strong>. Add these column headers in row 1:</p>
+                    <div class="bg-slate-100 p-2 rounded text-[11px] font-mono text-slate-800 overflow-x-auto border border-slate-300">
+                        Timestamp | FullName | Grade | Email | Phone | PaymentMethod | IndividualEvent | TeamEvent | Teammates | Dietary | ParentName | ParentPhone
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div>
+                    <h4 class="font-bold text-slate-900 text-sm mb-1">Step 2: Paste Google Apps Script</h4>
+                    <p class="text-slate-600 mb-2">Click <strong>Extensions &gt; Apps Script</strong> in your sheet, delete any existing code, and paste this exact script:</p>
+                    
+                    <div class="relative">
+                        <pre id="code-snippet" class="bg-slate-900 text-emerald-400 p-3 rounded-lg text-[11px] font-mono overflow-x-auto border border-slate-800">
+function doPost(e) {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  var data = JSON.parse(e.postData.contents);
+  sheet.appendRow([
+    new Date(),
+    data.fullName,
+    data.gradeLevel,
+    data.email,
+    data.phone,
+    data.paymentMethod,
+    data.individualEvent,
+    data.teamEvent,
+    data.teammates,
+    data.dietaryRestrictions,
+    data.parentName,
+    data.parentPhone
+  ]);
+  return ContentService.createTextOutput("Success").setMimeType(ContentService.MimeType.TEXT);
+}</pre>
+                        <button type="button" onclick="copyScriptCode()" class="absolute top-2 right-2 bg-white/20 hover:bg-white/30 text-white text-[11px] font-bold px-2.5 py-1 rounded border border-white/30 transition">
+                            <i class="fa-regular fa-copy mr-1"></i> Copy
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div>
+                    <h4 class="font-bold text-slate-900 text-sm mb-1">Step 3: Deploy as Web App & Paste URL Below</h4>
+                    <p class="text-slate-600 mb-2">Click <strong>Deploy &gt; New Deployment</strong>, choose type <strong>Web App</strong>, set <em>Who has access</em> to <strong>"Anyone"</strong>, click Deploy, and copy the Web App URL.</p>
+                    
+                    <!-- Google Security Bypass Guide Box -->
+                    <div class="my-2.5 p-3 bg-amber-50 border border-amber-300 rounded-lg text-[11px] text-amber-900 leading-relaxed">
+                        <strong class="font-bold block mb-1 text-amber-950"><i class="fa-solid fa-triangle-exclamation mr-1 text-amber-600"></i> Bypassing "Google hasn't verified this app":</strong>
+                        When authorizing your script, Google displays this standard warning for user-created scripts. To proceed:
+                        <ol class="list-decimal pl-4 mt-1 space-y-0.5 font-medium">
+                            <li>Click <span class="font-bold">"Advanced"</span> in the bottom-left corner of the Google pop-up.</li>
+                            <li>Click <span class="font-bold underline">"Go to [Script Name] (unsafe)"</span> at the bottom.</li>
+                            <li>Click <span class="font-bold text-emerald-800">"Allow"</span> to grant access to write to your Google Sheet.</li>
+                        </ol>
+                    </div>
+
+                    <div class="mt-3 bg-slate-50 p-3 rounded-lg border border-slate-300 space-y-2">
+                        <label for="modal-script-url" class="block font-bold text-xs uppercase tracking-wider text-fbla-navy">Paste Your Web App URL Here:</label>
+                        <input type="url" id="modal-script-url" placeholder="https://script.google.com/macros/s/.../exec" class="w-full px-3 py-2 rounded border border-slate-300 text-xs focus:ring-2 focus:ring-fbla-blue">
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-slate-50 px-6 py-4 border-t border-slate-200 flex justify-end space-x-3">
+                <button type="button" onclick="closeScriptGuideModal()" class="px-4 py-2 text-xs font-semibold text-slate-600 hover:text-slate-800">Cancel</button>
+                <button type="button" onclick="saveScriptUrlFromModal()" class="px-5 py-2 bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold rounded-lg transition shadow-xs">
+                    Save Webhook URL
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Data and Application Logic -->
+    <script>
+        // High School Regional Events Dataset
+        const FBLA_EVENTS = [
+            { id: 'acc1', title: 'Accounting', type: 'individual', format: 'testing', formatLabel: 'Objective Testing', icon: 'fa-pen-to-square', badgeBg: 'bg-blue-100', badgeText: 'text-fbla-blue', badgeBorder: 'border-blue-200' },
+            { id: 'acc2', title: 'Advanced Accounting', type: 'individual', format: 'testing', formatLabel: 'Objective Testing', icon: 'fa-pen-to-square', badgeBg: 'bg-blue-100', badgeText: 'text-fbla-blue', badgeBorder: 'border-blue-200' },
+            { id: 'adv', title: 'Advertising', type: 'individual', format: 'testing', formatLabel: 'Objective Testing', icon: 'fa-pen-to-square', badgeBg: 'bg-blue-100', badgeText: 'text-fbla-blue', badgeBorder: 'border-blue-200' },
+            { id: 'bus_comm', title: 'Business Communication', type: 'individual', format: 'testing', formatLabel: 'Objective Testing', icon: 'fa-pen-to-square', badgeBg: 'bg-blue-100', badgeText: 'text-fbla-blue', badgeBorder: 'border-blue-200' },
+            { id: 'comp_app', title: 'Computer Applications', type: 'individual', format: 'testing', formatLabel: 'Objective Testing', icon: 'fa-pen-to-square', badgeBg: 'bg-blue-100', badgeText: 'text-fbla-blue', badgeBorder: 'border-blue-200' },
+            { id: 'intro_bus_comm', title: 'Introduction to Business Communication', type: 'individual', format: 'testing', formatLabel: 'Objective Testing', icon: 'fa-pen-to-square', badgeBg: 'bg-blue-100', badgeText: 'text-fbla-blue', badgeBorder: 'border-blue-200' },
+            { id: 'intro_bus_proc', title: 'Introduction to Business Procedures', type: 'individual', format: 'testing', formatLabel: 'Objective Testing', icon: 'fa-pen-to-square', badgeBg: 'bg-blue-100', badgeText: 'text-fbla-blue', badgeBorder: 'border-blue-200' },
+            { id: 'intro_it', title: 'Introduction to Information Technology', type: 'individual', format: 'testing', formatLabel: 'Objective Testing', icon: 'fa-pen-to-square', badgeBg: 'bg-blue-100', badgeText: 'text-fbla-blue', badgeBorder: 'border-blue-200' },
+            { id: 'intro_parli', title: 'Introduction to Parliamentary Procedures', type: 'individual', format: 'testing', formatLabel: 'Objective Testing', icon: 'fa-pen-to-square', badgeBg: 'bg-blue-100', badgeText: 'text-fbla-blue', badgeBorder: 'border-blue-200' },
+            { id: 'net_infra', title: 'Networking Infrastructure', type: 'individual', format: 'testing', formatLabel: 'Objective Testing', icon: 'fa-pen-to-square', badgeBg: 'bg-blue-100', badgeText: 'text-fbla-blue', badgeBorder: 'border-blue-200' },
+            { id: 'fbla_lead', title: 'Future Business Leader', type: 'individual', format: 'both', formatLabel: 'Both (Test & Interview)', icon: 'fa-layer-group', badgeBg: 'bg-teal-100', badgeText: 'text-teal-800', badgeBorder: 'border-teal-200' },
+            { id: 'impromptu', title: 'Impromptu Speaking', type: 'individual', format: 'roleplay', formatLabel: 'Role Play / Speech', icon: 'fa-comments', badgeBg: 'bg-purple-100', badgeText: 'text-purple-800', badgeBorder: 'border-purple-200' },
+            { id: 'intro_bus_pres', title: 'Introduction to Business Presentation', type: 'individual', format: 'roleplay', formatLabel: 'Role Play / Speech', icon: 'fa-comments', badgeBg: 'bg-purple-100', badgeText: 'text-purple-800', badgeBorder: 'border-purple-200' },
+            { id: 'intro_public_speak', title: 'Introduction to Public Speaking', type: 'individual', format: 'roleplay', formatLabel: 'Role Play / Speech', icon: 'fa-comments', badgeBg: 'bg-purple-100', badgeText: 'text-purple-800', badgeBorder: 'border-purple-200' },
+            { id: 'job_int', title: 'Job Interview', type: 'individual', format: 'roleplay', formatLabel: 'Role Play / Interview', icon: 'fa-comments', badgeBg: 'bg-purple-100', badgeText: 'text-purple-800', badgeBorder: 'border-purple-200' },
+            { id: 'public_speak', title: 'Public Speaking', type: 'individual', format: 'roleplay', formatLabel: 'Role Play / Speech', icon: 'fa-comments', badgeBg: 'bg-purple-100', badgeText: 'text-purple-800', badgeBorder: 'border-purple-200' },
+            { id: 'bus_plan', title: 'Business Plan', type: 'team', format: 'both', formatLabel: 'Both (Pre-judged & Pres.)', icon: 'fa-layer-group', badgeBg: 'bg-teal-100', badgeText: 'text-teal-800', badgeBorder: 'border-teal-200' },
+            { id: 'career_port', title: 'Career Portfolio', type: 'team', format: 'both', formatLabel: 'Both (Pre-judged & Pres.)', icon: 'fa-layer-group', badgeBg: 'bg-teal-100', badgeText: 'text-teal-800', badgeBorder: 'border-teal-200' },
+            { id: 'coding_prog', title: 'Coding & Programming', type: 'team', format: 'both', formatLabel: 'Both (Test & Pres.)', icon: 'fa-layer-group', badgeBg: 'bg-teal-100', badgeText: 'text-teal-800', badgeBorder: 'border-teal-200' },
+            { id: 'game_sim', title: 'Computer Game & Simulation', type: 'team', format: 'both', formatLabel: 'Both (Test & Pres.)', icon: 'fa-layer-group', badgeBg: 'bg-teal-100', badgeText: 'text-teal-800', badgeBorder: 'border-teal-200' },
+            { id: 'data_analysis', title: 'Data Analysis', type: 'team', format: 'both', formatLabel: 'Both (Test & Pres.)', icon: 'fa-layer-group', badgeBg: 'bg-teal-100', badgeText: 'text-teal-800', badgeBorder: 'border-teal-200' },
+            { id: 'digital_anim', title: 'Digital Animation', type: 'team', format: 'both', formatLabel: 'Both (Pre-judged & Pres.)', icon: 'fa-layer-group', badgeBg: 'bg-teal-100', badgeText: 'text-teal-800', badgeBorder: 'border-teal-200' },
+            { id: 'digital_video', title: 'Digital Video Production', type: 'team', format: 'both', formatLabel: 'Both (Pre-judged & Pres.)', icon: 'fa-layer-group', badgeBg: 'bg-teal-100', badgeText: 'text-teal-800', badgeBorder: 'border-teal-200' },
+            { id: 'fin_stmt_analysis', title: 'Financial Statement Analysis', type: 'team', format: 'both', formatLabel: 'Both (Test & Pres.)', icon: 'fa-layer-group', badgeBg: 'bg-teal-100', badgeText: 'text-teal-800', badgeBorder: 'border-teal-200' },
+            { id: 'future_educator', title: 'Future Business Educator', type: 'team', format: 'both', formatLabel: 'Both (Test & Pres.)', icon: 'fa-layer-group', badgeBg: 'bg-teal-100', badgeText: 'text-teal-800', badgeBorder: 'border-teal-200' },
+            { id: 'graphic_design', title: 'Graphic Design', type: 'team', format: 'both', formatLabel: 'Both (Pre-judged & Pres.)', icon: 'fa-layer-group', badgeBg: 'bg-teal-100', badgeText: 'text-teal-800', badgeBorder: 'border-teal-200' },
+            { id: 'intro_programming', title: 'Introduction to Programming', type: 'team', format: 'testing', formatLabel: 'Objective Testing', icon: 'fa-pen-to-square', badgeBg: 'bg-blue-100', badgeText: 'text-fbla-blue', badgeBorder: 'border-blue-200' },
+            { id: 'intro_social_media', title: 'Introduction to Social Media Strategies', type: 'team', format: 'both', formatLabel: 'Both (Test & Pres.)', icon: 'fa-layer-group', badgeBg: 'bg-teal-100', badgeText: 'text-teal-800', badgeBorder: 'border-teal-200' },
+            { id: 'mobile_app', title: 'Mobile App Development', type: 'team', format: 'both', formatLabel: 'Both (Test & Pres.)', icon: 'fa-layer-group', badgeBg: 'bg-teal-100', badgeText: 'text-teal-800', badgeBorder: 'border-teal-200' },
+            { id: 'psa', title: 'Public Service Announcement', type: 'team', format: 'both', formatLabel: 'Both (Pre-judged & Pres.)', icon: 'fa-layer-group', badgeBg: 'bg-teal-100', badgeText: 'text-teal-800', badgeBorder: 'border-teal-200' },
+            { id: 'sales_pres', title: 'Sales Presentation', type: 'team', format: 'roleplay', formatLabel: 'Role Play / Presentation', icon: 'fa-comments', badgeBg: 'bg-purple-100', badgeText: 'text-purple-800', badgeBorder: 'border-purple-200' },
+            { id: 'social_media', title: 'Social Media Strategies', type: 'team', format: 'both', formatLabel: 'Both (Test & Pres.)', icon: 'fa-layer-group', badgeBg: 'bg-teal-100', badgeText: 'text-teal-800', badgeBorder: 'border-teal-200' },
+            { id: 'tech_support', title: 'Technology Support & Services', type: 'team', format: 'testing', formatLabel: 'Objective Testing', icon: 'fa-pen-to-square', badgeBg: 'bg-blue-100', badgeText: 'text-fbla-blue', badgeBorder: 'border-blue-200' },
+            { id: 'visual_design', title: 'Visual Design', type: 'team', format: 'both', formatLabel: 'Both (Pre-judged & Pres.)', icon: 'fa-layer-group', badgeBg: 'bg-teal-100', badgeText: 'text-teal-800', badgeBorder: 'border-teal-200' },
+            { id: 'web_code_dev', title: 'Website Coding & Development', type: 'team', format: 'both', formatLabel: 'Both (Test & Pres.)', icon: 'fa-layer-group', badgeBg: 'bg-teal-100', badgeText: 'text-teal-800', badgeBorder: 'border-teal-200' },
+            { id: 'web_design', title: 'Website Design', type: 'team', format: 'both', formatLabel: 'Both (Pre-judged & Pres.)', icon: 'fa-layer-group', badgeBg: 'bg-teal-100', badgeText: 'text-teal-800', badgeBorder: 'border-teal-200' },
+            { id: 'spirit_event', title: 'Spirit Events (T-shirt / Banner / Cheer)', type: 'spirit', format: 'spirit', formatLabel: 'Spirit Event', icon: 'fa-flag', badgeBg: 'bg-amber-100', badgeText: 'text-amber-800', badgeBorder: 'border-amber-200' }
+        ];
+
+        // Global State
+        let selectedEvents = [];
+        let teammateCount = 0;
+        let activeCategory = 'all';
+        let googleScriptUrl = localStorage.getItem('fbla_google_script_url') || '';
+
+        window.onload = function() {
+            renderEvents();
+            updateConfigBanner();
+        };
+
+        function updateConfigBanner() {
+            const banner = document.getElementById('sheets-config-banner');
+            if (googleScriptUrl) {
+                banner.className = "mb-6 p-4 rounded-xl border bg-emerald-50 border-emerald-200 text-emerald-900 flex flex-wrap justify-between items-center gap-3 no-print";
+                banner.innerHTML = `
+                    <div class="flex items-center space-x-3 text-xs sm:text-sm">
+                        <i class="fa-solid fa-circle-check text-emerald-600 text-lg"></i>
+                        <div>
+                            <strong class="font-bold">Google Sheet Connection Active:</strong> Submissions will automatically log to your spreadsheet.
+                        </div>
+                    </div>
+                    <button type="button" onclick="openScriptGuideModal()" class="text-xs text-emerald-800 underline font-bold hover:text-emerald-950">
+                        Change / Edit URL
+                    </button>
+                `;
+            } else {
+                banner.className = "mb-6 p-4 rounded-xl border bg-amber-50 border-amber-200 text-amber-900 flex flex-wrap justify-between items-center gap-3 no-print";
+                banner.innerHTML = `
+                    <div class="flex items-center space-x-3 text-xs sm:text-sm">
+                        <i class="fa-solid fa-triangle-exclamation text-amber-600 text-lg"></i>
+                        <div>
+                            <strong class="font-bold">Advisor Action Required:</strong> Google Sheet endpoint not configured yet. 
+                            <span class="text-amber-800">Submissions will generate printable receipts until connected.</span>
+                        </div>
+                    </div>
+                    <button type="button" onclick="openScriptGuideModal()" class="bg-amber-700 hover:bg-amber-800 text-white font-bold px-3 py-1.5 rounded-lg text-xs transition">
+                        Connect Google Sheet Now
+                    </button>
+                `;
+            }
+        }
+
+        // Render Events Grid
+        function renderEvents() {
+            const container = document.getElementById('events-grid');
+            const searchKeyword = document.getElementById('eventSearch').value.toLowerCase();
+            container.innerHTML = '';
+
+            const filtered = FBLA_EVENTS.filter(event => {
+                let matchesCategory = false;
+                if (activeCategory === 'all') matchesCategory = true;
+                else if (activeCategory === 'individual') matchesCategory = (event.type === 'individual');
+                else if (activeCategory === 'team') matchesCategory = (event.type === 'team');
+                else if (activeCategory === 'testing') matchesCategory = (event.format === 'testing');
+                else if (activeCategory === 'roleplay') matchesCategory = (event.format === 'roleplay');
+                else if (activeCategory === 'both') matchesCategory = (event.format === 'both');
+
+                const matchesSearch = event.title.toLowerCase().includes(searchKeyword);
+                return matchesCategory && matchesSearch;
+            });
+
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div class="col-span-full text-center py-8 text-slate-400 text-xs">
+                        No events found for your search or active filter.
+                    </div>
+                `;
+                return;
+            }
+
+            filtered.forEach(event => {
+                const isSelected = selectedEvents.some(e => e.id === event.id);
+
+                const card = document.createElement('div');
+                card.className = `p-3 rounded-xl border transition-all cursor-pointer flex items-center justify-between ${
+                    isSelected 
+                        ? 'border-fbla-blue bg-blue-50/80 shadow-xs ring-2 ring-fbla-blue/20' 
+                        : 'border-slate-200 bg-white hover:border-slate-300 hover:shadow-2xs'
+                }`;
+                card.onclick = () => toggleEventSelection(event);
+
+                card.innerHTML = `
+                    <div class="pr-2 space-y-1">
+                        <h5 class="font-bold text-slate-900 text-xs sm:text-sm leading-snug">${event.title}</h5>
+                        <div class="flex flex-wrap items-center gap-1.5">
+                            <span class="text-[9px] font-extrabold uppercase px-1.5 py-0.5 rounded ${event.badgeBg} ${event.badgeText} border ${event.badgeBorder} inline-flex items-center">
+                                <i class="fa-solid ${event.icon} mr-1"></i> ${event.formatLabel}
+                            </span>
+                            <span class="text-[9px] font-bold uppercase px-1.5 py-0.5 rounded bg-slate-100 text-slate-600 border border-slate-200">
+                                ${event.type}
+                            </span>
+                        </div>
+                    </div>
+                    <span class="font-bold text-xs shrink-0 ${isSelected ? 'text-fbla-blue' : 'text-slate-400'}">
+                        ${isSelected ? '<i class="fa-solid fa-circle-check text-base"></i>' : '<i class="fa-regular fa-circle text-base"></i>'}
+                    </span>
+                `;
+
+                container.appendChild(card);
+            });
+        }
+
+        function filterEvents() {
+            renderEvents();
+        }
+
+        function setCategoryFilter(category, btnElem) {
+            activeCategory = category;
+            const buttons = document.querySelectorAll('#categoryTabs button');
+            buttons.forEach(btn => {
+                btn.className = 'cat-btn px-2.5 py-1.5 rounded-md text-slate-600 hover:text-fbla-navy transition';
+            });
+            btnElem.className = 'cat-btn px-2.5 py-1.5 rounded-md bg-white text-fbla-navy shadow-xs font-bold transition';
+            renderEvents();
+        }
+
+        function toggleEventSelection(eventObj) {
+            const existingIndex = selectedEvents.findIndex(e => e.id === eventObj.id);
+
+            if (existingIndex > -1) {
+                selectedEvents.splice(existingIndex, 1);
+            } else {
+                const currentIndivCount = selectedEvents.filter(e => e.type === 'individual').length;
+                const currentTeamCount = selectedEvents.filter(e => e.type === 'team').length;
+
+                if (eventObj.type === 'individual' && currentIndivCount >= 1) {
+                    showBannerAlert('Limit Reached: You may only select ONE Individual Event.');
+                    return;
+                }
+
+                if (eventObj.type === 'team' && currentTeamCount >= 1) {
+                    showBannerAlert('Limit Reached: You may only select ONE Team Event.');
+                    return;
+                }
+
+                selectedEvents.push(eventObj);
+            }
+
+            updateSummaryUI();
+            updateTeammateSectionVisibility();
+            renderEvents();
+        }
+
+        function updateSummaryUI() {
+            const listContainer = document.getElementById('selected-events-list');
+            const countBadge = document.getElementById('event-count-badge');
+            const indivCount = document.getElementById('indiv-count');
+            const teamCount = document.getElementById('team-count');
+
+            const totalIndiv = selectedEvents.filter(e => e.type === 'individual').length;
+            const totalTeam = selectedEvents.filter(e => e.type === 'team').length;
+
+            countBadge.textContent = `${selectedEvents.length} Selected`;
+            indivCount.textContent = `${totalIndiv} / 1`;
+            teamCount.textContent = `${totalTeam} / 1`;
+
+            if (selectedEvents.length === 0) {
+                listContainer.innerHTML = `
+                    <div class="text-center py-8 text-slate-400 text-xs italic">
+                        <i class="fa-regular fa-folder-open text-2xl mb-2 block"></i>
+                        No events selected yet.<br>Select 1 Individual and/or 1 Team event.
+                    </div>
+                `;
+                return;
+            }
+
+            listContainer.innerHTML = '';
+            selectedEvents.forEach(e => {
+                const item = document.createElement('div');
+                item.className = 'flex items-center justify-between bg-slate-50 border border-slate-200 p-2.5 rounded-lg text-xs';
+                item.innerHTML = `
+                    <div>
+                        <div class="font-bold text-slate-800">${e.title}</div>
+                        <div class="text-[10px] text-slate-500 uppercase font-semibold flex items-center gap-1 mt-0.5">
+                            <span>${e.type}</span> • <span class="text-fbla-blue font-bold">${e.formatLabel}</span>
+                        </div>
+                    </div>
+                    <button type="button" onclick="removeEvent('${e.id}')" class="text-slate-400 hover:text-red-500 p-1 transition">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                `;
+                listContainer.appendChild(item);
+            });
+        }
+
+        function removeEvent(eventId) {
+            selectedEvents = selectedEvents.filter(e => e.id !== eventId);
+            updateSummaryUI();
+            updateTeammateSectionVisibility();
+            renderEvents();
+        }
+
+        function updateTeammateSectionVisibility() {
+            const teamSection = document.getElementById('team-section');
+            const hasTeamEvent = selectedEvents.some(e => e.type === 'team');
+            const section4Num = document.getElementById('section-4-num');
+
+            if (hasTeamEvent) {
+                teamSection.classList.remove('hidden');
+                section4Num.textContent = '4';
+                if (teammateCount === 0) {
+                    addTeammateInput();
+                }
+            } else {
+                teamSection.classList.add('hidden');
+                section4Num.textContent = '3';
+            }
+        }
+
+        function addTeammateInput() {
+            if (teammateCount >= 2) {
+                showBannerAlert('Maximum team members reached.');
+                return;
+            }
+
+            teammateCount++;
+            const container = document.getElementById('teammates-container');
+            const row = document.createElement('div');
+            row.id = `teammate-row-${teammateCount}`;
+            row.className = 'grid grid-cols-1 sm:grid-cols-2 gap-3 p-3 bg-slate-50 rounded-lg border border-slate-200 relative';
+
+            row.innerHTML = `
+                <div>
+                    <label class="block text-[11px] font-bold text-slate-600 mb-1">Teammate #${teammateCount} Full Name *</label>
+                    <input type="text" name="teammateName" required placeholder="Teammate Full Name" class="w-full px-3 py-2 rounded-md border border-slate-300 text-xs focus:ring-2 focus:ring-fbla-blue">
+                </div>
+                <div>
+                    <label class="block text-[11px] font-bold text-slate-600 mb-1">Teammate #${teammateCount} Email *</label>
+                    <input type="email" name="teammateEmail" required placeholder="teammate@school.edu" class="w-full px-3 py-2 rounded-md border border-slate-300 text-xs focus:ring-2 focus:ring-fbla-blue">
+                </div>
+            `;
+
+            container.appendChild(row);
+        }
+
+        // Form Submission Handler with Google Apps Script Webhook
+        async function handleFormSubmit(e) {
+            e.preventDefault();
+
+            if (selectedEvents.length === 0) {
+                showBannerAlert('Please select at least one event before submitting.');
+                return;
+            }
+
+            const paymentRadio = document.querySelector('input[name="paymentMethod"]:checked');
+            if (!paymentRadio) {
+                showBannerAlert('Please select a payment method ($35.00).');
+                return;
+            }
+
+            const submitBtn = document.getElementById('submit-btn');
+            const submitBtnIcon = document.getElementById('submit-btn-icon');
+            
+            // Gather values
+            const indivEventObj = selectedEvents.find(ev => ev.type === 'individual');
+            const teamEventObj = selectedEvents.find(ev => ev.type === 'team');
+
+            let teammatesArr = [];
+            const teammateNames = document.querySelectorAll('input[name="teammateName"]');
+            const teammateEmails = document.querySelectorAll('input[name="teammateEmail"]');
+            teammateNames.forEach((nInput, idx) => {
+                if (nInput.value) {
+                    teammatesArr.push(`${nInput.value} (${teammateEmails[idx].value || 'No email'})`);
+                }
+            });
+
+            const formDataPayload = {
+                fullName: document.getElementById('fullName').value,
+                gradeLevel: document.getElementById('gradeLevel').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                paymentMethod: paymentRadio.value,
+                individualEvent: indivEventObj ? indivEventObj.title : 'None',
+                teamEvent: teamEventObj ? teamEventObj.title : 'None',
+                teammates: teammatesArr.join('; ') || 'N/A',
+                dietaryRestrictions: document.getElementById('dietaryRestrictions').value,
+                parentName: document.getElementById('parentName').value,
+                parentPhone: document.getElementById('parentPhone').value,
+                studentSignature: document.getElementById('studentSignature').value,
+                parentSignature: document.getElementById('parentSignature').value
+            };
+
+            // Loading UI State
+            submitBtn.disabled = true;
+            submitBtn.classList.add('opacity-75');
+            submitBtn.querySelector('span').textContent = 'Sending to Google Sheet...';
+            submitBtnIcon.className = 'fa-solid fa-circle-notch fa-spin ml-2';
+
+            if (googleScriptUrl) {
+                try {
+                    // Send to Google Sheets Webhook via POST
+                    await fetch(googleScriptUrl, {
+                        method: 'POST',
+                        mode: 'no-cors', // Standard mode for Google Apps Script Web Apps
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(formDataPayload)
+                    });
+
+                    showBannerAlert('Success! Registration sent to Google Spreadsheet.');
+                } catch (err) {
+                    console.error('Sheet logging error:', err);
+                    showBannerAlert('Logged locally. Check Google Script URL connection.');
+                }
+            } else {
+                showBannerAlert('Registration saved. Connect Google Sheet in top bar for auto-logging.');
+            }
+
+            // Restore Submit Button
+            submitBtn.disabled = false;
+            submitBtn.classList.remove('opacity-75');
+            submitBtn.querySelector('span').textContent = 'Submit Final Registration';
+            submitBtnIcon.className = 'fa-solid fa-cloud-arrow-up ml-2';
+
+            // Open Receipt Modal
+            displayReceiptModal(formDataPayload);
+        }
+
+        function displayReceiptModal(data) {
+            document.getElementById('r-name').textContent = data.fullName;
+            document.getElementById('r-grade').textContent = data.gradeLevel;
+            document.getElementById('r-email').textContent = data.email;
+            document.getElementById('r-phone').textContent = data.phone;
+            document.getElementById('r-payment').textContent = data.paymentMethod;
+            document.getElementById('r-dietary').textContent = data.dietaryRestrictions;
+
+            document.getElementById('r-parent-name').textContent = data.parentName;
+            document.getElementById('r-parent-phone').textContent = data.parentPhone;
+            document.getElementById('r-student-sig').textContent = data.studentSignature;
+            document.getElementById('r-parent-sig').textContent = data.parentSignature;
+
+            // Events
+            const rEventsList = document.getElementById('r-events-list');
+            rEventsList.innerHTML = '';
+            selectedEvents.forEach(ev => {
+                const item = document.createElement('div');
+                item.className = 'p-2.5 bg-slate-50 border border-slate-200 rounded text-xs flex justify-between items-center';
+                item.innerHTML = `
+                    <div>
+                        <span class="font-bold text-slate-800">${ev.title}</span>
+                        <span class="text-[10px] text-fbla-blue font-bold ml-2">(${ev.formatLabel})</span>
+                    </div>
+                    <span class="text-[10px] bg-slate-200 text-slate-700 px-2 py-0.5 rounded uppercase font-semibold">${ev.type}</span>
+                `;
+                rEventsList.appendChild(item);
+            });
+
+            // Teammates
+            const rTeamBox = document.getElementById('r-teammates-box');
+            const rTeamList = document.getElementById('r-teammates-list');
+            rTeamList.innerHTML = '';
+
+            const hasTeamEvent = selectedEvents.some(e => e.type === 'team');
+            if (hasTeamEvent && data.teammates !== 'N/A') {
+                rTeamBox.classList.remove('hidden');
+                const tArray = data.teammates.split('; ');
+                tArray.forEach(tm => {
+                    const tDiv = document.createElement('div');
+                    tDiv.innerHTML = `<i class="fa-solid fa-user-group text-slate-400 mr-1.5"></i> ${tm}`;
+                    rTeamList.appendChild(tDiv);
+                });
+            } else {
+                rTeamBox.classList.add('hidden');
+            }
+
+            document.getElementById('confirmation-modal').classList.remove('hidden');
+        }
+
+        function openScriptGuideModal() {
+            document.getElementById('modal-script-url').value = googleScriptUrl;
+            document.getElementById('script-guide-modal').classList.remove('hidden');
+        }
+
+        function closeScriptGuideModal() {
+            document.getElementById('script-guide-modal').classList.add('hidden');
+        }
+
+        function saveScriptUrlFromModal() {
+            const inputUrl = document.getElementById('modal-script-url').value.trim();
+            googleScriptUrl = inputUrl;
+            localStorage.setItem('fbla_google_script_url', inputUrl);
+            updateConfigBanner();
+            closeScriptGuideModal();
+            showBannerAlert(inputUrl ? 'Google Webhook URL Saved!' : 'Webhook URL cleared.');
+        }
+
+        function copyScriptCode() {
+            const codeText = document.getElementById('code-snippet').innerText;
+            try {
+                const textarea = document.createElement('textarea');
+                textarea.value = codeText;
+                textarea.style.position = 'fixed';
+                textarea.style.left = '-9999px';
+                textarea.style.top = '-9999px';
+                document.body.appendChild(textarea);
+                textarea.focus();
+                textarea.select();
+                const successful = document.execCommand('copy');
+                document.body.removeChild(textarea);
+                
+                if (successful) {
+                    showBannerAlert('Script code copied to clipboard!');
+                } else {
+                    showBannerAlert('Could not auto-copy. Please manually select and copy.');
+                }
+            } catch (err) {
+                console.error('Clipboard copy failed:', err);
+                showBannerAlert('Could not auto-copy. Please manually select and copy.');
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('confirmation-modal').classList.add('hidden');
+        }
+
+        function showBannerAlert(msg) {
+            const alertBox = document.createElement('div');
+            alertBox.className = 'fixed bottom-5 right-5 bg-fbla-navy text-white px-5 py-3 rounded-xl shadow-xl z-50 text-xs border border-fbla-gold flex items-center space-x-3 transition transform translate-y-0';
+            alertBox.innerHTML = `
+                <i class="fa-solid fa-triangle-exclamation text-fbla-gold text-lg"></i>
+                <span>${msg}</span>
+            `;
+            document.body.appendChild(alertBox);
+
+            setTimeout(() => {
+                alertBox.remove();
+            }, 3500);
+        }
+
+        function printBlankForm() {
+            window.print();
+        }
+
+        function resetForm() {
+            document.getElementById('fbla-registration-form').reset();
+            selectedEvents = [];
+            teammateCount = 0;
+            document.getElementById('teammates-container').innerHTML = '';
+            updateSummaryUI();
+            updateTeammateSectionVisibility();
+            renderEvents();
+        }
+    </script>
+</body>
+</html>
